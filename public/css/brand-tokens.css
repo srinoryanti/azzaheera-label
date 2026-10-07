@@ -1,0 +1,89 @@
+/* ============================================================
+   BRAND TOKENS — satu sumber kebenaran identitas Azzahera Label
+   Dipakai layout admin DAN toko. Jangan hardcode warna/font
+   di blade; pakai var(--brand-*) ini.
+   Identitas: hitam + emas logo (mewah, elegan).
+   ============================================================ */
+:root {
+  /* --- Warna brand --- */
+  --brand-black: #141414;       /* hitam brand: sidebar, tombol, judul */
+  --brand-gold: #D4AF37;        /* emas logo: aksen utama */
+  --brand-gold-deep: #9c7c2a;   /* emas tua: hover, border aktif */
+  --brand-gold-soft: #F8F1DC;   /* emas muda: background lembut */
+  --brand-cream: #faf7f0;       /* background hangat */
+  --brand-text: #4A4A4A;        /* teks isi */
+  --brand-muted: #8a8378;       /* teks sekunder */
+  --brand-border: #EAEAEA;      /* garis pemisah */
+  --brand-line: #e7dfcb;        /* garis hangat (admin) */
+
+  /* --- Warna status (semantik, jangan diganti emas) --- */
+  --brand-success: #198754;
+  --brand-danger: #dc3545;
+  --brand-warning: #fd7e14;
+  --brand-info: #0d6efd;
+
+  /* --- Font peran --- */
+  --font-ui: 'Inter', 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Jost', 'Inter', sans-serif;
+  --font-accent: 'Allura', cursive;
+
+  /* --- Bentuk --- */
+  --radius-card: 18px;
+  --radius-input: 10px;
+  --radius-pill: 999px;
+  --shadow-soft: 0 8px 24px rgba(16, 35, 27, .05);
+}
+
+/* Peran font toko: heading/display tetap Jost (karakter butik),
+   body & elemen UI Inter (seragam dengan admin).
+   Ditaruh sesudah typography.css agar menang di cascade. */
+body, p, span, a, li, td, th, label, button, input, textarea, select {
+  font-family: var(--font-ui);
+}
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6,
+.text-display, .section-title, .page-title {
+  font-family: var(--font-display);
+}
+
+/* --- Tombol brand (bentuk sama dengan admin: pill) --- */
+.btn-brand{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand-black);color:#fff;border:none;border-radius:var(--radius-pill);padding:12px 28px;font-weight:700;font-size:13px;text-decoration:none;cursor:pointer;transition:.18s}
+.btn-brand:hover{background:#2a2a2a;color:var(--brand-gold)}
+.btn-brand-gold{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand-gold);color:var(--brand-black);border:none;border-radius:var(--radius-pill);padding:12px 28px;font-weight:700;font-size:13px;text-decoration:none;cursor:pointer;transition:.18s}
+.btn-brand-gold:hover{background:var(--brand-gold-deep);color:#fff}
+.btn-brand-outline{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:var(--brand-black);border:1px solid var(--brand-gold-deep);border-radius:var(--radius-pill);padding:12px 28px;font-weight:700;font-size:13px;text-decoration:none;cursor:pointer;transition:.18s}
+.btn-brand-outline:hover{background:var(--brand-black);color:#fff}
+
+/* --- Form toko: radius + focus ring emas seperti admin --- */
+.form-control, .form-select { border-radius: var(--radius-input); }
+.form-control:focus, .form-select:focus {
+  border-color: var(--brand-gold-deep);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, .28);
+}
+
+/* --- Kartu ringkasan toko: radius + shadow lembut seperti admin --- */
+.shopping-cart__totals, .checkout__totals {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+}
+
+/* --- Tabel brand (cermin table-spark admin) --- */
+.table-brand { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+.table-brand thead th {
+  background: var(--brand-black); color: #fff; font-size: 11px;
+  text-transform: uppercase; letter-spacing: .5px;
+  padding: 11px 10px; white-space: nowrap;
+}
+.table-brand thead th:first-child { border-radius: 10px 0 0 10px; }
+.table-brand thead th:last-child { border-radius: 0 10px 10px 0; }
+.table-brand tbody td { padding: 11px 10px; border-bottom: 1px solid #eef2ec; vertical-align: middle; }
+.table-brand tbody tr:hover { background: var(--brand-cream); }
+
+/* --- Badge status (nilai sama dengan admin) --- */
+.badge-brand{display:inline-flex;align-items:center;justify-content:center;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;line-height:1.4}
+.b-waiting{background:#e8efea;color:#33544a}
+.b-payment{background:#fff3d6;color:#8a6100}
+.b-processing{background:#e0efff;color:#0b5ed7}
+.b-shipped{background:#d9f3fb;color:#087990}
+.b-delivered{background:#dcf5e3;color:#146c43}
+.b-canceled{background:#fde2e4;color:#b02a37}
+.b-default{background:#e9ecef;color:#495057}

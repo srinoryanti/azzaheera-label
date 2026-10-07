@@ -1,0 +1,108 @@
+/* Azzahera Label Typography System - SSOT: Halaman Utama (index.blade.php + style.css) */
+:root{
+  --font-primary:'Jost',sans-serif;
+  --font-accent:'Allura',cursive;
+  /* Scale - berdasarkan style.css + index */
+  --text-display: clamp(30px,4.5vw,64px); /* slideshow h2 - H1 display */
+  --text-h1: 1.75rem; /* 28px - section-title / page-title */
+  --text-h2: 1.625rem; /* 26px - H3 */
+  --text-h3: 1.25rem; /* 20px - H4 */
+  --text-h4: 1.125rem; /* 18px - H5 */
+  --text-h5: 1rem; /* 16px - H6 */
+  --text-h6: 0.875rem; /* 14px - card title */
+  --text-body: 1rem; /* 16px - base */
+  --text-body-sm: 0.875rem; /* 14px - product price, body small */
+  --text-small: 0.8125rem; /* 13px - button, table td */
+  --text-caption: 0.75rem; /* 12px - label, helper, badge */
+  --text-label: 0.6875rem; /* 11px - tiny label */
+  --leading-tight: 1.05; /* display */
+  --leading-heading: 1.2;
+  --leading-body: 1.6;
+  --leading-label: 1.4;
+  --weight-regular:400;
+  --weight-medium:500;
+  --weight-semibold:600;
+  --weight-bold:700;
+}
+html{font-family:var(--font-primary);}
+body{font-family:var(--font-primary);font-size:var(--text-body);line-height:var(--leading-body);font-weight:var(--weight-regular);color:#222;}
+
+/* Hierarchy utilities - gunakan class ini, jangan hardcode font-size */
+.text-display{font-family:var(--font-primary);font-size:var(--text-display);line-height:var(--leading-tight);font-weight:var(--weight-regular);}
+.text-display-bold{font-weight:var(--weight-bold);}
+.text-h1{font-size:var(--text-h1);line-height:var(--leading-heading);font-weight:var(--weight-bold);}
+.text-h2{font-size:var(--text-h2);line-height:var(--leading-heading);font-weight:var(--weight-semibold);}
+.text-h3{font-size:var(--text-h3);line-height:var(--leading-heading);font-weight:var(--weight-medium);}
+.text-h4{font-size:var(--text-h4);line-height:var(--leading-heading);font-weight:var(--weight-medium);}
+.text-h5{font-size:var(--text-h5);line-height:var(--leading-heading);font-weight:var(--weight-medium);}
+.text-h6{font-size:var(--text-h6);line-height:var(--leading-heading);font-weight:var(--weight-bold);}
+.text-body{font-size:var(--text-body);line-height:var(--leading-body);}
+.text-body-sm{font-size:var(--text-body-sm);line-height:var(--leading-body);}
+.text-small{font-size:var(--text-small);line-height:var(--leading-body);}
+.text-caption{font-size:var(--text-caption);line-height:var(--leading-label);}
+.text-label{font-size:var(--text-caption);line-height:var(--leading-label);font-weight:var(--weight-semibold);letter-spacing:.3px;text-transform:uppercase;}
+.text-label-sm{font-size:var(--text-label);line-height:var(--leading-label);font-weight:var(--weight-semibold);letter-spacing:.5px;text-transform:uppercase;}
+.text-button{font-size:var(--text-small);line-height:1.2;font-weight:var(--weight-semibold);}
+.text-price{font-size:var(--text-body-sm);line-height:1.4;font-weight:var(--weight-semibold);}
+.text-price s{font-size:var(--text-body-sm);font-weight:var(--weight-regular);}
+
+/* Override: pastikan semua heading/body pakai Jost */
+h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6,p,span,a,li,td,th,label,button,input,textarea,select{font-family:var(--font-primary);}
+
+/* Table header selalu label */
+.table thead th, .order-info-table th, .checkout-totals th{font-family:var(--font-primary);font-size:var(--text-caption);font-weight:var(--weight-semibold);letter-spacing:.3px;text-transform:uppercase;line-height:var(--leading-label);}
+/* Body table */
+.table tbody td, .order-info-table td{font-size:var(--text-body-sm);line-height:var(--leading-body);}
+/* Badge/Caption */
+.badge{font-size:var(--text-caption) !important;font-weight:var(--weight-bold) !important;line-height:var(--leading-label) !important;}
+/* Button */
+.btn{font-family:var(--font-primary);font-size:var(--text-small);font-weight:var(--weight-semibold);line-height:1.2;}
+/* Form label */
+label, .body-title{font-size:var(--text-caption);font-weight:var(--weight-semibold);letter-spacing:.2px;text-transform:uppercase;}
+/* Helper / small */
+small, .small, .text-muted{font-size:var(--text-caption);line-height:var(--leading-label);}
+
+/* === OVERRIDES: Harmonisasi dengan SSOT Halaman Utama === */
+/* About */
+.about-title{font-size:var(--text-h1) !important;line-height:var(--leading-heading) !important;font-weight:var(--weight-bold) !important;}
+.about-subtitle{font-size:var(--text-body) !important;line-height:var(--leading-body) !important;}
+.about-section-title{font-size:var(--text-h2) !important;font-weight:var(--weight-bold) !important;}
+.about-description{font-size:var(--text-body-sm) !important;line-height:1.9 !important;}
+.vision-title{font-size:var(--text-h4) !important;font-weight:var(--weight-bold) !important;}
+.vision-text, .mission-list li{font-size:var(--text-body-sm) !important;line-height:1.8 !important;}
+.contact-title{font-size:var(--text-h2) !important;font-weight:var(--weight-bold) !important;}
+.contact-description{font-size:var(--text-body-sm) !important;}
+.contact-label{font-size:var(--text-caption) !important;}
+.contact-value{font-size:var(--text-body-sm) !important;font-weight:var(--weight-semibold) !important;}
+.btn-azzahera{font-size:var(--text-small) !important;font-weight:var(--weight-semibold) !important;}
+
+/* Shop */
+.shop-title{font-size:var(--text-h1) !important;font-weight:var(--weight-bold) !important;line-height:var(--leading-heading) !important;}
+.product-card .card-title, .pc__title{font-size:var(--text-h6) !important;font-weight:var(--weight-bold) !important;}
+.product-card .product-price, .product-card__price{font-size:var(--text-body-sm) !important;}
+.product-card__price s{font-size:var(--text-body-sm) !important;}
+
+/* Cart */
+.variant-label{font-size:var(--text-caption) !important;font-weight:var(--weight-semibold) !important;text-transform:uppercase !important;}
+.size-btn{font-size:var(--text-caption) !important;font-weight:var(--weight-bold) !important;}
+
+/* Details */
+.product-single__name{font-size:var(--text-h2) !important;font-weight:var(--weight-bold) !important;}
+.product-single__price{font-size:var(--text-body-sm) !important;}
+.product-single__price s{font-size:var(--text-body-sm) !important;}
+
+/* Admin Dashboard - samakan dengan H4/H5/Body */
+.dashboard-number{font-size:var(--text-h3) !important;font-weight:var(--weight-bold) !important;line-height:var(--leading-heading) !important;}
+.dashboard-money{font-size:var(--text-h4) !important;font-weight:var(--weight-bold) !important;}
+.wg-chart-default .body-text{font-size:var(--text-caption) !important;line-height:var(--leading-label) !important;}
+.wg-chart-default .image i{font-size:var(--text-h4) !important;}
+.orders-title-bar h5, .latest-orders-title-bar h5{font-size:var(--text-h4) !important;font-weight:var(--weight-bold) !important;}
+
+/* User orders - sudah dihandle via typography.css global table */
+.shop-checkout .page-title, .my-account .page-title{font-size:var(--text-h1) !important;font-weight:var(--weight-bold) !important;line-height:var(--leading-heading) !important;}
+
+/* Fix hardcoded 30px/22px di about responsive - biarkan clamp tapi harmonisasi */
+@media(max-width:768px){
+  .about-title{font-size:var(--text-h1) !important;}
+  .about-section-title{font-size:var(--text-h3) !important;}
+}

@@ -1,0 +1,55 @@
+.footer-middle {
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+}
+.text-right{
+    text-align: right;
+}
+.pt-90 {
+    padding-top: 90px !important;
+}
+.my-account__address-list {
+    display: flex;
+    gap: 1.625rem;
+}
+
+.form-floating>.form-control,
+.form-floating>.form-select {
+    height: 48px;
+}
+/* MOBILE HEADER */
+
+.header-mobile,
+.header-mobile.header-mobile_sticky,
+.header-mobile.azzahera-header-mobile,
+.header-mobile .container{
+    background-color: #D4AF37 !important;
+    border-bottom: 1px solid #B8962E !important;
+}
+
+/* Logo lingkaran header - rapi di atas gold */
+.azzahera-header .logo__image,
+#header .logo__image {
+    height: 56px !important;
+    width: 56px !important;
+    max-height: none !important;
+    max-width: none !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.azzahera-header-mobile .logo__image,
+.header-mobile .logo__image {
+    height: 42px !important;
+    width: 42px !important;
+    max-height: none !important;
+    max-width: none !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}

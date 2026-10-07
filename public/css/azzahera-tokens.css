@@ -1,0 +1,16 @@
+/* ============================================================
+   AZZAHERA TOKO — token identitas brand (hitam + emas logo)
+   Alias ke BRAND TOKENS (brand-tokens.css, dimuat sebelumnya).
+   Satu sumber kebenaran warna untuk semua halaman website.
+   Variabel lokal per-halaman (--azzahera-*) memetakan ke sini.
+   ============================================================ */
+:root {
+  --azz-gold: var(--brand-gold);        /* emas logo */
+  --azz-gold-deep: var(--brand-gold-deep);   /* emas tua: hover, border aktif */
+  --azz-gold-soft: var(--brand-gold-soft);   /* emas muda: background lembut */
+  --azz-black: var(--brand-black);      /* hitam brand: teks, tombol */
+  --azz-text: var(--brand-text);        /* teks isi */
+  --azz-muted: var(--brand-muted);      /* teks sekunder */
+  --azz-border: var(--brand-border);    /* garis pemisah */
+  --azz-cream: var(--brand-cream);      /* background hangat */
+}
