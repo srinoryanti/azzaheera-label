@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\Review;
-use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Slide;
@@ -639,71 +638,6 @@ if ($request->hasFile('images')) {
         return redirect()->route('admin.products')->with('status', 'Product has been deleted successfully!');
     }
 
-
-    public function coupons()
-    {
-        $coupons = Coupon::orderBy('expiry_date', 'DESC')->paginate(12);
-        return view('admin.coupons', compact('coupons'));
-    }
-
-    public function coupon_add()
-    {
-        return view('admin.coupon-add');
-    }
-
-    public function coupon_store(Request $request)
-    {
-        $request->validate([
-            'code' => 'required|string|max:50|unique:coupons,code',
-            'type' => 'required|in:fixed,percent',
-            'value' => 'required|numeric|min:0',
-            'cart_value' => 'required|numeric|min:0',
-            'expiry_date' => 'required|date|after_or_equal:today',
-        ]);
-
-        $coupon = new Coupon();
-        $coupon->code = $request->code;
-        $coupon->type = $request->type;
-        $coupon->value = $request->value;
-        $coupon->expiry_date = $request->expiry_date;
-        $coupon->cart_value = $request->cart_value;
-        $coupon->save();
-        return redirect()->route('admin.coupons')->with('status', 'Coupon has been added successfully!');
-    }
-
-    public function coupon_edit($id)
-    {
-        $coupon = Coupon::findOrFail($id);
-        return view('admin.coupon-edit', compact('coupon'));
-    }
-
-    public function coupon_update(Request $request)
-    {
-        $request->validate([
-            'code' => 'required|string|max:50|unique:coupons,code,'.$request->id,
-            'type' => 'required|in:fixed,percent',
-            'value' => 'required|numeric|min:0',
-            'cart_value' => 'required|numeric|min:0',
-            'expiry_date' => 'required|date|after_or_equal:today',
-        ]);
-
-        $coupon = Coupon::findOrFail($request->id);
-        $coupon->code = $request->code;
-        $coupon->type = $request->type;
-        $coupon->value = $request->value;
-        $coupon->expiry_date = $request->expiry_date;
-        $coupon->cart_value = $request->cart_value;
-        $coupon->save();
-        return redirect()->route('admin.coupons')->with('status', 'Coupon has been updated successfully!');
-
-    }
-
-    public function coupon_delete($id)
-    {
-        $coupon = Coupon::findOrFail($id);
-        $coupon->delete();
-        return redirect()->route('admin.coupons')->with('status', 'Coupon has been deleted successfully!');
-    }
 
     public function orders()
     {

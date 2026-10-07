@@ -74,11 +74,6 @@
                         <li><a href="{{ route('admin.categories') }}">Semua Kategori</a></li>
                     </ul>
                 </li>
-                <li class="sidebar-menu-item">
-                    <a href="{{ route('admin.coupons') }}" class="sidebar-menu-link {{ request()->routeIs('admin.coupon*') ? 'active' : '' }}">
-                        <i class="bi bi-ticket-perforated"></i><span>Kupon</span>
-                    </a>
-                </li>
             </ul>
         </div>
 

@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
-use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Transaction;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -120,41 +118,7 @@ class CartController extends Controller
     public function clear_cart()
     {
         Cart::instance('cart')->destroy();
-        return back();
-    }
-
-    /* ===================== COUPON ===================== */
-
-    public function apply_coupon(Request $request)
-    {
-        $request->validate(['coupon_code' => 'required|string|max:50']);
-        // Cart::subtotal() mengembalikan string format "270.000" (titik ribuan) — hitung manual agar akurat
-        $subtotal = 0;
-        foreach (Cart::instance('cart')->content() as $it) { $subtotal += $it->price * $it->qty; }
-
-
-        $coupon = Coupon::where('code', $request->coupon_code)
-            ->where('expiry_date', '>=', Carbon::today())
-            ->where('cart_value', '<=', $subtotal)
-            ->first();
-
-        if (!$coupon) {
-            return back()->with('error', 'Coupon tidak valid');
-        }
-
-        Session::put('coupon', [
-            'code'  => $coupon->code,
-            'type'  => $coupon->type,
-            'value' => $coupon->value,
-        ]);
-
-        $this->calculateDiscount();
-        return back()->with('success', 'Coupon berhasil digunakan');
-    }
-
-    public function remove_coupon()
-    {
-        Session::forget(['coupon', 'discounts']);
+        Session::forget('checkout');
         return back();
     }
 
@@ -298,7 +262,7 @@ class CartController extends Controller
         }
 
         Cart::instance('cart')->destroy();
-        Session::forget(['checkout', 'coupon', 'discounts']);
+        Session::forget('checkout');
         Session::put('order_id', $order->id);
 
         return redirect()->route('checkout.payment');
@@ -358,39 +322,11 @@ public function setAmountforCheckout()
         $subtotal += $item->price * $item->qty;
     }
 
-    $discount = min((float) Session::get('discounts.discount', 0), $subtotal);
-
-    $total = max(0, $subtotal - $discount);
-
     Session::put('checkout', [
         'subtotal' => $subtotal,
-        'discount' => $discount,
+        'discount' => 0,
         'tax'      => 0,
-        'total'    => $total,
-    ]);
-}
-
-
-public function calculateDiscount()
-{
-    $subtotal = 0;
-
-    foreach (Cart::instance('cart')->content() as $item) {
-        $subtotal += $item->price * $item->qty;
-    }
-
-    $coupon = Session::get('coupon');
-
-    if (!$coupon) {
-        return;
-    }
-
-    $discount = $coupon['type'] === 'fixed'
-        ? min((float) $coupon['value'], $subtotal)
-        : min($subtotal * (float) $coupon['value'] / 100, $subtotal);
-
-    Session::put('discounts', [
-        'discount' => $discount,
+        'total'    => $subtotal,
     ]);
 }
 public function orderConfirmation(Order $order)

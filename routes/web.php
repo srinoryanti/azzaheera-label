@@ -80,12 +80,6 @@ Route::prefix('keranjang')->group(function () {
 
     Route::delete('/clear', [CartController::class, 'clear_cart'])
         ->name('cart.clear');
-
-    Route::post('/apply-coupon', [CartController::class, 'apply_coupon'])
-        ->name('cart.coupon.apply');
-
-    Route::delete('/remove-coupon', [CartController::class, 'remove_coupon'])
-        ->name('cart.coupon.remove');
 });
 
 
@@ -223,24 +217,6 @@ Route::prefix('admin')
             ->name('admin.product.delete');
 
 
-
-        Route::get('/coupons', [AdminController::class, 'coupons'])
-            ->name('admin.coupons');
-
-        Route::get('/coupon/add', [AdminController::class, 'coupon_add'])
-            ->name('admin.coupon.add');
-
-        Route::post('/coupon/store', [AdminController::class, 'coupon_store'])
-            ->name('admin.coupon.store');
-
-        Route::get('/coupon/{id}/edit', [AdminController::class, 'coupon_edit'])
-            ->name('admin.coupon.edit');
-
-        Route::put('/coupon/update', [AdminController::class, 'coupon_update'])
-            ->name('admin.coupon.update');
-
-        Route::delete('/coupon/{id}/delete', [AdminController::class, 'coupon_delete'])
-            ->name('admin.coupon.delete');
 
         Route::get('/orders', [AdminController::class, 'orders'])
             ->name('admin.orders');
