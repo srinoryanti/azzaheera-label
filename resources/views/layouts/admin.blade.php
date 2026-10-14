@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }} — Admin</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/logo/logo_website.png') }}">
+    <link rel="icon" type="image/jpeg" href="{{ asset('assets/images/logowebsite.jpeg') }}">
 
-    {{-- Spark Admin: Bootstrap 5 + Icons via CDN + design system Spark --}}
+    {{-- Spark Admin: satu font Inter untuk semua fitur (sama dengan toko) --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert.min.css') }}">

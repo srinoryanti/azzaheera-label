@@ -20,7 +20,11 @@ class CartController extends Controller
     public function index()
     {
         $items = Cart::instance('cart')->content();
-        return view('cart', compact('items'));
+        // Produk + varian untuk pemilih warna/ukuran di halaman keranjang
+        $productsById = Product::with('colors')
+            ->whereIn('id', $items->pluck('id')->all())
+            ->get()->keyBy('id');
+        return view('cart', compact('items', 'productsById'));
     }
 
     public function add_items(Request $request)
@@ -113,6 +117,89 @@ class CartController extends Controller
     {
         Cart::instance('cart')->remove($rowId);
         return back();
+    }
+
+    /**
+     * Ganti varian warna/ukuran langsung dari halaman keranjang.
+     * Item lama dihapus lalu ditambahkan lagi dengan varian baru (qty ikut).
+     * Bila varian tujuan sudah ada di keranjang, qty digabung (batas stok).
+     */
+    public function update_variant(Request $request, $rowId)
+    {
+        $request->validate([
+            'color' => 'nullable|string|max:50',
+            'size'  => 'nullable|string|max:50',
+        ]);
+
+        $cart = Cart::instance('cart');
+        $item = $cart->get($rowId);
+        if (!$item) {
+            return back()->with('error', 'Item keranjang tidak ditemukan.');
+        }
+
+        $product = Product::with('colors')->find($item->id);
+        if (!$product) {
+            return back()->with('error', 'Produk tidak ditemukan.');
+        }
+
+        $options = [];
+
+        if ($product->colors->count() > 0) {
+            $selected = $product->colors->firstWhere('color', $request->color)
+                ?? $product->colors->firstWhere('color', trim((string) $request->color));
+            if (!$selected) {
+                return back()->with('error', 'Warna tidak valid.');
+            }
+            $options = [
+                'color'      => $selected->color,
+                'color_code' => $selected->color_code,
+                'image'      => $selected->image,
+            ];
+        }
+
+        if ($product->sizes) {
+            $availableSizes = array_filter(array_map('trim', explode(',', $product->sizes)), fn ($v) => $v !== '');
+            $selectedSize = trim((string) $request->size);
+            if ($selectedSize === '' || !in_array($selectedSize, $availableSizes, true)) {
+                return back()->with('error', 'Ukuran tidak valid.');
+            }
+            $options['size'] = $selectedSize;
+        }
+
+        $qty = max(1, min(100, (int) $item->qty));
+        if ($product->quantity < $qty) {
+            return back()->with('error', "Stok produk \"{$product->name}\" tidak mencukupi (sisa {$product->quantity}).");
+        }
+
+        $price = ($product->sale_price && $product->sale_price < $product->regular_price)
+            ? $product->sale_price : $product->regular_price;
+
+        // Apakah varian tujuan sudah ada di baris lain? gabung qty bila ya.
+        $existing = $cart->content()->first(function ($it) use ($rowId, $product, $options) {
+            if ($it->rowId === $rowId || $it->id != $product->id) return false;
+            return ($it->options->color ?? null) === ($options['color'] ?? null)
+                && ($it->options->size ?? null) === ($options['size'] ?? null);
+        });
+
+        if ($existing) {
+            $merged = min(100, $existing->qty + $qty);
+            if ($product->quantity < $merged) {
+                return back()->with('error', "Stok produk \"{$product->name}\" tidak mencukupi (sisa {$product->quantity}).");
+            }
+            $cart->remove($rowId);
+            $cart->update($existing->rowId, $merged);
+        } else {
+            $cart->remove($rowId);
+            $cart->add(
+                $product->id,
+                $product->name,
+                $qty,
+                (float) $price,
+                $options
+            )->associate('App\Models\Product');
+        }
+
+        return back()->with('success', 'Varian produk diperbarui.');
     }
 
     public function clear_cart()

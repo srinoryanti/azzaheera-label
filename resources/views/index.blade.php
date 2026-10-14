@@ -27,8 +27,6 @@
     object-fit: contain !important;
     object-position: right bottom !important;
 
-    transform: translateY(20px) !important;
-
     box-sizing: border-box !important;
 }
 
@@ -93,7 +91,7 @@
     height: 100% !important;
 
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 0 0 28px !important;
 
     display: flex !important;
     align-items: flex-end !important;

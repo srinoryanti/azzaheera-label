@@ -22,10 +22,13 @@
   --brand-warning: #fd7e14;
   --brand-info: #0d6efd;
 
-  /* --- Font peran --- */
-  --font-ui: 'Inter', 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: 'Jost', 'Inter', sans-serif;
-  --font-accent: 'Allura', cursive;
+  /* --- Font: SATU font untuk semua fitur (SSOT = Inter).
+     Jangan pakai Jost / Allura / Rajdhani / SofiaPro / Courgette lagi.
+     Variabel display/accent dipertahankan sebagai alias agar kode lama
+     tidak rusak, tapi semuanya menunjuk ke Inter. --- */
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-accent: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* --- Bentuk --- */
   --radius-card: 18px;
@@ -34,15 +37,24 @@
   --shadow-soft: 0 8px 24px rgba(16, 35, 27, .05);
 }
 
-/* Peran font toko: heading/display tetap Jost (karakter butik),
-   body & elemen UI Inter (seragam dengan admin).
+/* Peran font: SEMUA elemen (body + heading + UI) pakai Inter.
    Ditaruh sesudah typography.css agar menang di cascade. */
-body, p, span, a, li, td, th, label, button, input, textarea, select {
-  font-family: var(--font-ui);
-}
+body, p, span, a, li, td, th, label, button, input, textarea, select,
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6,
 .text-display, .section-title, .page-title {
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
+}
+
+/* ============================================================
+   OVERRIDE FONT WARISAN — paksa semua font lama template ke Inter.
+   Menang atas style.css (Rajdhani/Jost/SofiaPro/Allura/Courgette/
+   Trebuchet) + sweetalert (Open Sans) tanpa edit file vendor.
+   ============================================================ */
+body, .tooltip, .popover,
+.font-special, .font-courgette, .font-sofia,
+.form-control[type="password"],
+.sweet-alert, .sweet-alert h2, .sweet-alert p, .sweet-alert button, .sweet-alert input {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
 }
 
 /* --- Tombol brand (bentuk sama dengan admin: pill) --- */

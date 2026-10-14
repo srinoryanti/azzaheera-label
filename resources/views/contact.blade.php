@@ -4,10 +4,10 @@
 
 <style>
     .contact-page { margin: 0 !important; padding: 0 !important; background: #fff; color: #222; }
-    .contact-page h1, .contact-page h2, .contact-page h3 { font-family: 'Jost', 'Inter', sans-serif; }
+    .contact-page h1, .contact-page h2, .contact-page h3 { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; }
     .contact-page p, .contact-page span, .contact-page a, .contact-page li,
     .contact-page label, .contact-page input, .contact-page select, .contact-page textarea, .contact-page button {
-        font-family: 'Inter', 'Jost', system-ui, sans-serif;
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
     }
 
     .contact-page .kp-head { padding: 130px 0 10px; text-align: center; }

@@ -24,13 +24,34 @@ use Intervention\Image\Laravel\Facades\Image;
 
 class AdminController extends Controller
 {
-    public function index(){
-        // Cache dashboard 5 menit — query berat tidak perlu dijalankan tiap klik menu
-        $cacheKey = 'admin.dashboard.v2';
-        $data = Cache::remember($cacheKey, 300, function () {
+    public function index(Request $request){
+        // Filter rentang tanggal — default: awal bulan ini s/d hari ini
+        $defaultStart = Carbon::now()->startOfMonth()->toDateString();
+        $defaultEnd = Carbon::now()->toDateString();
+        try {
+            $startDate = $request->filled('start_date')
+                ? Carbon::createFromFormat('Y-m-d', $request->start_date)->toDateString()
+                : $defaultStart;
+            $endDate = $request->filled('end_date')
+                ? Carbon::createFromFormat('Y-m-d', $request->end_date)->toDateString()
+                : $defaultEnd;
+        } catch (\Exception $e) {
+            $startDate = $defaultStart;
+            $endDate = $defaultEnd;
+        }
+        if ($startDate > $endDate) {
+            [$startDate, $endDate] = [$endDate, $startDate];
+        }
+        $startDateTime = $startDate.' 00:00:00';
+        $endDateTime = $endDate.' 23:59:59';
+
+        // Cache dashboard 5 menit per rentang — query berat tidak perlu dijalankan tiap klik menu
+        $cacheKey = "admin.dashboard.v2.{$startDate}_{$endDate}";
+        $data = Cache::remember($cacheKey, 300, function () use ($startDateTime, $endDateTime) {
             // Fix: limit di DB, eager load count, tanpa get()->take()
             $orders = Order::withCount('orderItems')
                 ->select('id','name','phone','subtotal','total','status','created_at','delivered_date')
+                ->whereBetween('created_at', [$startDateTime, $endDateTime])
                 ->latest()->limit(10)->get();
 
             $dashboardDatas = DB::select("Select sum(total) As TotalAmount,
@@ -42,7 +63,8 @@ class AdminController extends Controller
             sum(if(status='delivered',1,0)) As TotalDelivered,
             sum(if(status='canceled',1,0)) As TotalCanceled
             From orders
-            ");
+            Where created_at Between ? And ?
+            ", [$startDateTime, $endDateTime]);
 
             $monthlyDatas = DB::select("SELECT M.id As MonthNo, M.name As MonthName,
             IFNULL(D.TotalAmount,0) As TotalAmount,
@@ -70,6 +92,9 @@ class AdminController extends Controller
 
             return compact('orders','dashboardDatas','AmountM','OrderedAmountM','DeliveredAmountM','CanceledAmountM','TotalAmount','TotalOrderedAmount','TotalDeliveredAmount','TotalCanceledAmount');
         });
+
+        $data['startDate'] = $startDate;
+        $data['endDate'] = $endDate;
 
         return view('admin.index', $data);
     }

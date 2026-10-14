@@ -1,7 +1,7 @@
-/* Azzahera Label Typography System - SSOT: Halaman Utama (index.blade.php + style.css) */
+/* Azzahera Label Typography System - SSOT: satu font Inter untuk semua fitur */
 :root{
-  --font-primary:'Jost',sans-serif;
-  --font-accent:'Allura',cursive;
+  --font-primary:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-accent:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   /* Scale - berdasarkan style.css + index */
   --text-display: clamp(30px,4.5vw,64px); /* slideshow h2 - H1 display */
   --text-h1: 1.75rem; /* 28px - section-title / page-title */
@@ -46,7 +46,7 @@ body{font-family:var(--font-primary);font-size:var(--text-body);line-height:var(
 .text-price{font-size:var(--text-body-sm);line-height:1.4;font-weight:var(--weight-semibold);}
 .text-price s{font-size:var(--text-body-sm);font-weight:var(--weight-regular);}
 
-/* Override: pastikan semua heading/body pakai Jost */
+/* Override: pastikan semua heading/body pakai Inter (satu font) */
 h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6,p,span,a,li,td,th,label,button,input,textarea,select{font-family:var(--font-primary);}
 
 /* Table header selalu label */

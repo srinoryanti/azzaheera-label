@@ -78,6 +78,9 @@ Route::prefix('keranjang')->group(function () {
     Route::delete('/remove/{rowId}', [CartController::class, 'remove_item'])
         ->name('cart.remove');
 
+    Route::put('/variant/{rowId}', [CartController::class, 'update_variant'])
+        ->name('cart.variant.update');
+
     Route::delete('/clear', [CartController::class, 'clear_cart'])
         ->name('cart.clear');
 });

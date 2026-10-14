@@ -21,6 +21,20 @@
   .login-card .form-control:focus + label { color: #9c7c2a; }
   .login-card .form-control.is-invalid { border-color: #dc3545; }
 
+  /* Override CSS lama: label global uppercase (typography.css) + validasi hijau Bootstrap jadi emas */
+  .login-card label, .login-card .form-check-label { text-transform: none; letter-spacing: normal; }
+  .login-card .form-control.is-valid,
+  .was-validated .login-card .form-control:valid {
+    border-color: #9c7c2a;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%239c7c2a' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+  }
+  .login-card .form-control.is-valid:focus,
+  .was-validated .login-card .form-control:valid:focus { border-color: #D4AF37; background-color: #fff; box-shadow: 0 0 0 .2rem rgba(212,175,55,.18); }
+  .login-card .form-control:-webkit-autofill { -webkit-box-shadow: 0 0 0 60px #FFFDF8 inset; -webkit-text-fill-color: #141414; caret-color: #141414; }
+
   .btn-login { height: 50px; border: none; border-radius: 999px; background: linear-gradient(180deg, #DFBA45, #C9A22E); color: #fff; font-weight: 700; font-size: 15px; letter-spacing: .3px; cursor: pointer; transition: .18s; box-shadow: 0 8px 18px rgba(212,175,55,.35); }
   .btn-login:hover, .btn-login:focus { background: #9c7c2a; color: #fff; box-shadow: 0 6px 14px rgba(156,124,42,.4); }
 

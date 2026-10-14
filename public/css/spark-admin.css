@@ -20,7 +20,12 @@
   --gold: var(--brand-gold);
 }
 *{scrollbar-width:thin;scrollbar-color:#d3c5a1 transparent}
-body.spark-body{background:var(--bg);color:var(--ink);font-family:'Inter','Segoe UI',system-ui,sans-serif;margin:0}
+/* SSOT font: satu font Inter untuk admin + toko. Jangan tambah font lain. */
+body.spark-body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;margin:0}
+body.spark-body h1,body.spark-body h2,body.spark-body h3,body.spark-body h4,body.spark-body h5,body.spark-body h6,
+body.spark-body p,body.spark-body span,body.spark-body a,body.spark-body li,body.spark-body td,body.spark-body th,
+body.spark-body label,body.spark-body button,body.spark-body input,body.spark-body textarea,body.spark-body select,
+.sweet-alert,.sweet-alert h2,.sweet-alert p,.sweet-alert button,.sweet-alert input{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif !important}
 
 /* ---------- Sidebar ---------- */
 .sidebar-wrapper{position:fixed;inset:0 auto 0 0;width:258px;background:linear-gradient(180deg,var(--forest-900) 0%,var(--forest-800) 60%,#000000 100%);color:#e8e0cf;display:flex;flex-direction:column;z-index:1040;transition:margin .25s ease,width .25s ease}

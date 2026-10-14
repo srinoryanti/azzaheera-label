@@ -20,11 +20,35 @@
         <h1 class="page-title">Dashboard</h1>
         <p class="page-subtitle">Kelola penjualan Azzahera Label dengan mudah dan presisi.</p>
     </div>
-    <button class="btn-date-picker" type="button">
-        <i class="bi bi-calendar4-event"></i>
-        <span>{{ now()->startOfMonth()->translatedFormat('d M Y') }} - {{ now()->translatedFormat('d M Y') }}</span>
-        <i class="bi bi-chevron-down ms-1"></i>
-    </button>
+    <div class="dropdown">
+        <button class="btn-date-picker" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            <i class="bi bi-calendar4-event"></i>
+            <span>{{ \Carbon\Carbon::parse($startDate)->translatedFormat('d M Y') }} - {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d M Y') }}</span>
+            <i class="bi bi-chevron-down ms-1"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end p-3 shadow" style="min-width:280px">
+            <form method="GET" action="{{ route('admin.index') }}" id="dashboard-range-form">
+                <div class="mb-2">
+                    <label class="form-label small fw-bold mb-1" for="filter-start">Dari tanggal</label>
+                    <input type="date" name="start_date" id="filter-start" class="form-control" value="{{ $startDate }}" max="{{ now()->toDateString() }}" required>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small fw-bold mb-1" for="filter-end">Sampai tanggal</label>
+                    <input type="date" name="end_date" id="filter-end" class="form-control" value="{{ $endDate }}" max="{{ now()->toDateString() }}" required>
+                </div>
+                <div class="d-flex flex-wrap gap-1 my-3">
+                    <button type="button" class="btn btn-sm btn-outline-dark rounded-pill range-preset" data-days="1">Hari ini</button>
+                    <button type="button" class="btn btn-sm btn-outline-dark rounded-pill range-preset" data-days="7">7 hari</button>
+                    <button type="button" class="btn btn-sm btn-outline-dark rounded-pill range-preset" data-range="month">Bulan ini</button>
+                    <button type="button" class="btn btn-sm btn-outline-dark rounded-pill range-preset" data-range="year">Tahun ini</button>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-sm btn-dark rounded-pill flex-grow-1">Terapkan</button>
+                    <a href="{{ route('admin.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill">Reset</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 {{-- ===== TOP STAT ROW (Spark) ===== --}}
@@ -323,6 +347,27 @@ document.addEventListener('DOMContentLoaded', function () {
             tooltip: { y: { formatter: v => v + ' pesanan' } }
         }).render();
     }
+
+    // Preset rentang tanggal dashboard (format lokal YYYY-MM-DD, bukan UTC)
+    document.querySelectorAll('.range-preset').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            const today = new Date();
+            const fmt = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+            let start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const end = new Date(start);
+            if (this.dataset.range === 'year') {
+                start = new Date(today.getFullYear(), 0, 1);
+            } else if (this.dataset.range === 'month') {
+                start = new Date(today.getFullYear(), today.getMonth(), 1);
+            } else {
+                const n = parseInt(this.dataset.days || '1', 10);
+                start.setDate(start.getDate() - n + 1);
+            }
+            document.getElementById('filter-start').value = fmt(start);
+            document.getElementById('filter-end').value = fmt(end);
+            document.getElementById('dashboard-range-form').submit();
+        });
+    });
 });
 </script>
 @endpush
