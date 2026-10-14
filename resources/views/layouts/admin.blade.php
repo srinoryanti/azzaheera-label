@@ -27,7 +27,7 @@
 <div class="sidebar-wrapper" id="sidebar">
     <a href="{{ route('admin.index') }}" class="sidebar-brand">
         <img src="{{ asset('assets/images/logowebsite.jpeg') }}" alt="Azzahera" class="sidebar-brand-logo" onerror="this.src='https://ui-avatars.com/api/?name=A&background=141414&color=D4AF37'">
-        <span>Azzahera Admin</span>
+        <span>Azzahera Label Admin</span>
     </a>
 
     <div class="flex-grow-1 overflow-y-auto">

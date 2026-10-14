@@ -891,13 +891,6 @@
                             
                         </li>
                         <li class="navigation__item">
-                            <a href="{{ route('cart.index') }}"
-                                class="navigation__link {{ request()->routeIs('cart.*') ? 'active' : '' }}">
-                                Keranjang
-                            </a>
-                        </li>
-
-                        <li class="navigation__item">
                             <a href="{{ route('about') }}"
                                 class="navigation__link {{ request()->routeIs('about') ? 'active' : '' }}">
                                 Tentang Kami
@@ -998,12 +991,6 @@
                             <a href="{{ route('wishlist.index') }}"
                                 class="navigation__link {{ request()->routeIs('wishlist.*') ? 'active' : '' }}">
                                 Favorit
-                            </a>
-                        </li>
-                        <li class="navigation__item">
-                            <a href="{{ route('cart.index') }}"
-                                class="navigation__link {{ request()->routeIs('cart.*') ? 'active' : '' }}">
-                                Keranjang
                             </a>
                         </li>
                         <li class="navigation__item">

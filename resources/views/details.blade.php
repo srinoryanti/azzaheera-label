@@ -91,6 +91,7 @@
   .pd-tabs .nav-tabs { border: none; border-bottom: 1px solid #eee; display: flex; gap: 28px; margin-bottom: 0; background: transparent; border-radius: 0; padding: 0; width: 100%; }
   .pd-tabs .nav-link_underscore { border: none; border-bottom: 2px solid transparent; border-radius: 0; padding: 10px 2px; font-size: 13px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: .4px; margin-bottom: -1px; }
   .pd-tabs .nav-link_underscore.active { background: transparent; color: #111; border-bottom-color: #111; }
+  .pd-tabs .nav-link_underscore::after { display: none !important; content: none !important; }
   .pd-tabbody { background: transparent; border: none; border-radius: 0; padding: 20px 0; margin-top: 0; box-shadow: none; font-size: 14.5px; line-height: 1.8; color: #333; }
 
   .product-reviews { display: flex; flex-direction: column; gap: 0; }

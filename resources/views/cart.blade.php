@@ -2,16 +2,12 @@
 
 @section('content')
 <style>
-  /* Layout tabel seperti web online, polos tanpa card */
-  .cart-page { background: #fff; min-height: 60vh; }
-  .cart-wrap { max-width: 1200px; margin: 0 auto; padding: 18px 20px 60px; }
-  .cart-breadcrumb { font-size: 13px; color: #777; margin-bottom: 18px; text-transform: uppercase; letter-spacing: .3px; }
-  .cart-breadcrumb a { color: #111; text-decoration: none; font-weight: 600; }
-  .cart-breadcrumb a:hover { text-decoration: underline; }
-  .cart-breadcrumb span.current { color: #111; font-weight: 400; }
+  /* Samakan dengan halaman Produk Favorit */
+  .cart-page { background: #fff; min-height: 60vh; padding-top: 165px !important; padding-bottom: 45px; }
+  .cart-wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-  .cart-title { font-size: 28px; font-weight: 800; letter-spacing: -.3px; text-transform: uppercase; color: #141414; margin: 0 0 6px; }
-  .cart-subtitle { font-size: 15px; font-weight: 600; color: #8a8378; margin: 0 0 26px; }
+  .cart-title { margin-bottom: 28px; color: #171717; font-size: 28px; font-weight: 700; text-align: center; text-transform: none; letter-spacing: 0; }
+  .cart-title::after { content: ""; display: block; width: 50px; height: 3px; margin: 10px auto 0; background: #D4AF37; }
 
   .cart-grid { display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; }
   @media (max-width: 992px) { .cart-grid { grid-template-columns: 1fr; gap: 32px; } }
@@ -61,11 +57,13 @@
   .link-extra { display: block; text-align: center; font-size: 13.5px; font-weight: 700; color: #141414; margin-top: 14px; text-decoration: none; }
   .link-extra:hover { text-decoration: underline; }
 
-  .empty-plain { text-align: center; padding: 60px 20px; max-width: 560px; margin: 10px auto; }
-  .btn-black { display: inline-block; background: #1a1a1a; color: #fff; padding: 15px 40px; font-size: 14.5px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; text-decoration: none; }
-  .btn-black:hover { background: #000; color: #fff; }
+  .wishlist-empty { text-align: center; padding: 45px; border: 1px solid #eee; background: #fff; }
+  .wishlist-empty p { margin-bottom: 20px; color: #333; font-size: 15px; }
+  .btn-shop { display: inline-block; padding: 10px 18px; background: #D4AF37; border: 1px solid #D4AF37; color: #171717; text-decoration: none; font-weight: 600; }
+  .btn-shop:hover { background: #9c7c2a; border-color: #9c7c2a; color: #171717; text-decoration: none; }
 
   @media (max-width: 820px) {
+    .cart-page { padding-top: 135px !important; }
     .cart-title { font-size: 22px; }
     .cart-table-head { display: none; }
     .cart-row { grid-template-columns: 96px minmax(0,1fr); gap: 14px; }
@@ -75,11 +73,8 @@
   }
 </style>
 
-<main class="cart-page pt-90">
+<main class="cart-page">
   <div class="cart-wrap">
-    <div class="cart-breadcrumb">
-      <a href="{{ route('home.index') }}">Beranda</a> &nbsp;/&nbsp; <span class="current">Keranjang</span>
-    </div>
 
     @php
       $cartCount = $items->count();
@@ -99,8 +94,7 @@
       $productsMap = $productsById ?? collect();
     @endphp
 
-    <h1 class="cart-title">Keranjang Pembelian</h1>
-    <p class="cart-subtitle">{{ $cartQty }} barang • {{ $cartCount }} produk</p>
+    <h2 class="cart-title">Keranjang Pembelian</h2>
 
     @if($cartCount > 0)
     <div class="cart-grid">
@@ -226,13 +220,9 @@
       </div>
     </div>
     @else
-      <div class="empty-plain">
-        <div style="margin-bottom:14px;display:flex;justify-content:center;">
-          <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#c9c2b2" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        </div>
-        <h4 style="font-weight:800;color:#141414;margin-bottom:8px;">Keranjang kamu masih kosong</h4>
-        <p style="color:#8a8378;font-size:14px;margin-bottom:24px;">Yuk, jelajahi koleksi gamis, kemeja &amp; abaya premium dari Azzahera Label.</p>
-        <a href="{{ route('shop.index') }}" class="btn-black">Belanja Sekarang</a>
+      <div class="wishlist-empty">
+        <p>Belum ada produk di keranjang.</p>
+        <a href="{{ route('shop.index') }}" class="btn-shop">Belanja Sekarang</a>
       </div>
     @endif
   </div>
